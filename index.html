@@ -1,1 +1,661 @@
-<!DOCTYPE html><html prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>coding하며 happy해지자.</title><meta name="description" content="about web development (html, css, javascript)"><meta name="og:url" content="https://devhaeyeon.github.io"><meta name="og:type" content="website"><meta name="og:title" content="coding하며 happy해지자."><meta name="og:description" content="about web development (html, css, javascript)"><meta name="og:image:secure_url" content="https://devhaeyeon.github.io/image/logo.png"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.ico"><link rel="stylesheet" href="/css/chiangmai.css"><link rel="search" type="application/opensearchdescription+xml" href="https://devhaeyeon.github.io/atom.xml" title="coding하며 happy해지자."></head><body><div class="wrap"><header><a class="logo-link" href="/"><img src="/image/logo.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a class="nav-list-link" href="/archives/" target="_self">블로그</a></li></ul></header><main class="container"><ul class="home post-list"><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a class="post-title-link" href="/2017/12/03/web-performance/">web-performance</a></h2><div class="post-info"><div class="post-info-home"><div class="post-categories"></div></div></div></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a class="post-title-link" href="/2017/12/03/webgl-casestudy/">WebGL을 사용한 애니메이션 및 상호 작용 기법 탐색 (사례 연구)</a></h2><div class="post-info"><div class="post-info-home"><div class="post-categories"></div></div></div></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a class="post-title-link" href="/2017/12/03/five-js-styleguide/">5가지 자바스크립트 스타일 가이드</a></h2><div class="post-info"><div class="post-info-home"><div class="post-categories"></div></div></div></article></li></ul></main><footer><div class="paginator"></div></footer></div></body></html>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>coding하며 happy해지자.</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="about web development (html, css, javascript)">
+<meta property="og:type" content="website">
+<meta property="og:title" content="coding하며 happy해지자.">
+<meta property="og:url" content="https://devhaeyeon.github.io/index.html">
+<meta property="og:site_name" content="coding하며 happy해지자.">
+<meta property="og:description" content="about web development (html, css, javascript)">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="coding하며 happy해지자.">
+<meta name="twitter:description" content="about web development (html, css, javascript)">
+  
+    <link rel="alternate" href="/atom.xml" title="coding하며 happy해지자." type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">coding하며 happy해지자.</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://devhaeyeon.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-web-performance" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/12/03/web-performance/" class="article-date">
+  <time datetime="2017-12-03T13:10:17.000Z" itemprop="datePublished">2017-12-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/03/web-performance/">web-performance</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>아래의 글은 번역을 하였음을 사전에 알려 드립니다<br>(출처 : <a href="http://zuu.kr/izgd" target="_blank" rel="external">http://zuu.kr/izgd</a>)</p>
+</blockquote>
+<h2 id="효과적인-성능-개선-가이드"><a href="#효과적인-성능-개선-가이드" class="headerlink" title="효과적인 성능 개선 가이드"></a>효과적인 성능 개선 가이드</h2><p>인터넷은 기하 급수적으로 늘어나고 있으며 우리가 만드는 웹 플랫폼도 커지고 있습니다. 종종 우리는 연결성과 컨텍스트에 대한 더 큰 그림을 반영하지 못하는 경우가 많지만 웹에서의 사용자들은 발견 할 수 있습니다.<br>월드 와이드 웹(World Wide Web)의 상태를 보면, 한 눈에 감정 이입, 상황 변화 인식, 성능을 염두해 두고 있지 않는다. </p>
+<p>오늘날 웹의 상태는 어떻습니까?<br>이 행성의 74억 인구 중 단지 46%만이 인터넷에 접속할 수 있습니다.<br>평균 네트워크 속도는 7Mb/s의 속도 제한을 가지고 있습니다.<br>더 중요한 것은 인터넷 사용자의 93%가 모바일 기기를 통해 온라인에 접속하고 있다는 것입니다.<br>종종 데이터는 500MB 패킷 (독일과 브라질, Ben Schwarz의 Beyond the Bubble 에 대한 연결성면에서보다 흥미로운 통계 인 Real World Performance ) 을 구매하는 데 1 시간에서 13 시간 정도 소요될 수 있습니다.<br>우리들의 웹 사이트는 완벽한 형태가 아닙니다  . 평균 사이트 는 원래 Doom 게임의 크기입니다 (약 3MB). 통계 정확도를 위해 중간 값을 사용해야하는 Ilya Grigorik의 우수성을 읽어보십시오 . “평균 페이지”는 신화 : 중간 규모 사이트 크기는 현재 1.4MB입니다.) 이미지는 400MB에서 1.7MB의 대역폭과 자바 스크립트 평균을 쉽게 설명 할 수 있습니다. 이는 웹 플랫폼에만 관련된 문제는 아닙니다. 기본 응용 프로그램은 좋지 않습니다. 불특정 버그 수정을 위해 200 MB를 다운로드해야했던 시간을 기억하십니까?<br>기술자로서 종종 우리는 특권의 위치에 있다는 것을 발견하게 된다.<br>최신의 고급 노트북, 전화 및 고속 인터넷 연결을 통해 그 특권들이 모든 사람들에게 해당이 된다고 생각을 하게 된다.</p>
+<blockquote>
+<p>그래서 우리가 특권과 공감의 부족이라는 관점에서 웹 플랫폼을 구축한다면, 배타적인 경험이 될 것입니다.</p>
+</blockquote>
+<p>어떻게 하면 성능을 염두에두고 설계하고 개발하여 더 잘할 수 있을까요?</p>
+<h2 id="모든-asset을-최적화하기"><a href="#모든-asset을-최적화하기" class="headerlink" title="모든 asset을 최적화하기"></a>모든 asset을 최적화하기</h2><p>성능을 크게 향상시키는 가장 강력하지만 활용도가 낮은 방법 중 하나는 브라우저가 자산(asset)을 분석하고 제공하는 방법을 이해하는 것에서 부터 시작됩니다. 브라우저는 구문 분석과 동시에 우선 순위를 결정하는 동안 리소스를 발견하는 데 매우 유용합니다. 중요한 요청 이 들어오는 곳은 다음과 같습니다 .</p>
+<blockquote>
+<p>요청은 사용자의 뷰포트 내에 콘텐츠를 렌더링하는 데 필요한 자산이 포함되어있는 경우 중요합니다 .</p>
+</blockquote>
+<p>대부분의 사이트에서 HTML, CSS, 로고, 웹 글꼴 및 이미지 일 수 있습니다. 대부분<br>의 경우 자산 대신에 (JavaScript, 추적 코드, 광고 등) 수십 가지의 관련 자산이 필요하다는 것을 알게되었습니다. 운 좋게도 중요한 자원을 신중하게 선택하고 우선 순위를 조정하여이 동작을 제어 할 수 있습니다.</p>
+<p><link rel="preload">를 사용하면 원하는 콘텐츠가 제 시간에 렌더링 되도록 자산의 우선 순위를  high로 수동으로 강요할 수 있습니다.<br>이 기술은 Time to Interactive 메트릭에서 상당한 개선을 가져와 최적의 사용자 경험을 가능하게합니다.<br><img src="https://cdn-images-1.medium.com/max/800/1*JT-53LslhwOOqTgv1dGoXg.png" alt="linkImage"></p>
+<p>중요한 요청은 여전히 ​​많은 사람들에게 블랙 박스처럼 보입니다. 공유 가능한 자료가 부족해도 이를 변경하는 데 도움이되지 않습니다. 다행히 Ben Schwarz 는 주제에 대한 매우 포괄적이고 친숙한 기사 인  Critical Request를 발표했습니다 . 또한 Chrome에서 Addy의 사전 로드, 프리 페치 및 우선 순위를 확인하십시오.(<a href="https://medium.com/reloading/preload-prefetch-and-priorities-in-chrome-776165961bbf" target="_blank" rel="external">https://medium.com/reloading/preload-prefetch-and-priorities-in-chrome-776165961bbf</a>)<br><img src="https://cdn-images-1.medium.com/max/800/1*ju18GQzgF-TQDMrYdtPelg.gif" alt="linkimage2"></p>
+<p>Light Lighthouse 성능 도구 및 Critical Request Chains 검사를 사용 하거나 Chrome 개발자 도구의 네트워크 탭에서 요청 우선 순위를 확인하여 요청의 우선 순위 를 정하는 방법을 추적합니다 .</p>
+<h3 id="일반적인-성능-체크리스트"><a href="#일반적인-성능-체크리스트" class="headerlink" title="일반적인 성능 체크리스트"></a>일반적인 성능 체크리스트</h3><ol>
+<li>공격적으로 캐시하기</li>
+<li>압축 사용</li>
+<li>중요 자산의 우선 순위 지정</li>
+<li>콘텐츠 전송 네트워크 사용</li>
+</ol>
+<h2 id="이미지-최적화"><a href="#이미지-최적화" class="headerlink" title="이미지 최적화"></a>이미지 최적화</h2><p>이미지는 종종 웹 페이지의 전송 된 페이로드의 대부분을 차지하므로 이미지 최적화가 가장 큰 성능 향상을 가져올 수 있습니다. 여분의 바이트를 제거하는 데 도움이되는 기존의 많은 전략과 도구가 있지만 질문 할 첫 번째 질문은 “이 이미지가 메시지와 효과를 전달하는 것이 필수적입니까?” 입니다. 이를 제거 할 수 있다면 대역폭을 절약 할뿐만 아니라 요청도 줄일 수 있습니다.<br>어떤 경우에는 다른 기술로도 비슷한 결과를 얻을 수 있습니다. CSS에는 그림자, 그라디언트, 애니메이션 또는 모양과 같은 아트 방향에 대한 다양한 속성이있어 적절하게 스타일이 지정된 DOM 요소에 대한 asset을 교환 할 수 있습니다.</p>
+<h2 id="이미지의-올바른-형식-선택"><a href="#이미지의-올바른-형식-선택" class="headerlink" title="이미지의 올바른 형식 선택"></a>이미지의 올바른 형식 선택</h2><p>저작물을 삭제할 수없는 경우 어떤 형식이 적합할지 결정하는 것이 중요합니다. 초기 선택은 벡터 그래픽과 래스터 그래픽 사이에 적용됩니다.</p>
+<blockquote>
+<p>벡터 : 해상도는 독립적이며 대개 크기가 상당히 작습니다. 기본 도형 (선, 다각형, 원 및 점)으로 구성된 로고, 도해법 및 간단한 asset이 적합합니다. </p>
+<p>래스터 : 훨씬 더 자세한 결과를 제공합니다. 사진에 적합합니다.</p>
+</blockquote>
+<p>이 결정을 내린 후에는 JPEG, GIF, PNG-8, PNG-24 또는 WEBP 또는 JPEG-XR과 같은 최신 형식 중에서 선택할 수있는 적절한 형식의 비트가 있습니다. 이러한 선택의 폭이 넓어지면 우리는 어떻게 올바른 선택을 할 수 있을까요? 가장 적합한 형식을 찾는 기본 방법은 다음과 같습니다.</p>
+<blockquote>
+<p>JPEG : 다양한 색상의 사진 (예 : 사진)<br>PNG-8 : 몇 가지 색상의 이미지<br>PNG-24 : 부분 투명성이있는 이미지<br>GIF : 애니메이션 이미지</p>
+</blockquote>
+<p>Photoshop은 품질 저하, 노이즈 또는 색상 수 감소 등과 같은 다양한 설정을 통해 이러한 각 항목을 내보낼 때 최적화 할 수 있습니다. 설계자가 성능 관행에 대해 알고 올바른 올바른 사전 설정을 통해 올바른 유형의 asset을 준비 할 수 있는지 확인하십시오. 이미지를 개발하는 방법을 더 알고 싶다면 Lara Hogan의 귀중한 성능 설계 (Designing for Performance)로가 주십시오. (<a href="http://designingforperformance.com/optimizing-images/#choosing-an-image-format" target="_blank" rel="external">http://designingforperformance.com/optimizing-images/#choosing-an-image-format</a>)</p>
+<h2 id="이미지를-새로운-형식으로-실험하기"><a href="#이미지를-새로운-형식으로-실험하기" class="headerlink" title="이미지를 새로운 형식으로 실험하기"></a>이미지를 새로운 형식으로 실험하기</h2><p>이미지 형식의 스펙트럼에서 WebP, JPEG 2000 및 JPEG-XR과 같은 새로운 플레이어가 있습니다. 이 모든 것은 브라우저 공급 업체가 개발했습니다. WebP by Google, Apple의 JPEG 2000, Microsoft의 JPEG-XR입니다.</p>
+<blockquote>
+<p>WebP 는 무손실 압축과 손실 압축을 모두 지원하므로 가장 널리 사용되는 경쟁자입니다. 무손실 WebP는 PNG보다 26 % 작으며 JPG보다 25-34 % 작습니다. 74 % 브라우저 지원을 통해 폴백 (fallback)과 함께 안전하게 사용할 수 있으며 전송 된 바이트의 1/3 비용 절감 효과가 있습니다. JPG 및 PNG는 Photoshop 및 기타 이미지 처리 응용 프로그램뿐만 아니라 명령 줄 인터페이스 ( brew install webp) 를 통해 WebP로 변환 될 수 있습니다 .</p>
+</blockquote>
+<p>이러한 형식 간의 시각적 차이를 (사소한) 탐험하고 싶다면 Github에서 멋진 데모를하는 것이 좋습니다 .</p>
+<h2 id="이미지를-도구-및-알고리즘으로-최적화"><a href="#이미지를-도구-및-알고리즘으로-최적화" class="headerlink" title="이미지를 도구 및 알고리즘으로 최적화"></a>이미지를 도구 및 알고리즘으로 최적화</h2><p>심지어 후 처리 최적화를 건너 뛰는 보증하지 않습니다 매우 효율적인 이미지 형식을 사용하여. 이 단계는 매우 중요합니다.</p>
+<p>일반적으로 크기가 비교적 작은 SVG를 선택했다면 SVG도 압축해야합니다. SVGO 는 불필요한 메타 데이터를 제거하여 SVG를 신속하게 최적화 할 수있는 명령줄 도구입니다. 또는 웹 인터페이스를 선호하거나 운영 체제에 따라 제한되는 경우 Jake Archibald의 SVGOMG 를 사용 하십시오. SVG는 XML 기반 형식이기 때문에 서버 측에서 GZIP 압축을받을 수도 있습니다.</p>
+<p>ImageOptim 은 대부분의 다른 이미지 유형에 탁월한 선택입니다. pngcrush, pngquant, MozJPEG, Google Zopfli 등으로 구성된 포괄적 인 오픈 소스 패키지에 훌륭한 도구 모음이 번들로 제공됩니다. Mac OS 응용 프로그램, 명령 줄 인터페이스 및 Sketch 플러그인으로 제공되는 ImageOptim은 기존 워크 플로우에 쉽게 구현할 수 있습니다. Linux 또는 Windows 사용자의 경우 대부분의 ImageOptim CLI는 사용중인 플랫폼에서 사용할 수 있습니다.</p>
+<p>올해 초 신형 인코더를 사용해 보려면 Google은 Guetzli를 사용하면 됩니다. WebP 및 Zopfli에 대한 학습에서 파생 된 Open Source 알고리즘입니다. Guetzli는 사용 가능한 다른 압축 방법보다 최대 35 % 더 작은 JPEG을 생성합니다. 유일한 단점은 처리 속도가 느리다는 것입니다 (메가 픽셀 당 1 분의 CPU).</p>
+<p>도구를 선택할 때 원하는 결과를 얻고 팀의 워크 플로우에 맞는지 확인하십시오. 최적화 과정을 자동화하는 것이 이상적입니다. 최적화되지 않은 균열을 미끄러지는 이미지는 없습니다.</p>
+<h2 id="책임-있고-반응이-빠른-이미지"><a href="#책임-있고-반응이-빠른-이미지" class="headerlink" title="책임 있고 반응이 빠른 이미지"></a>책임 있고 반응이 빠른 이미지</h2><p>10 년 전에 모든 것을 제공하기 위해 한 가지 해결책을 찾지 못했지만 끊임없이 변화하고 반응이 빠른 웹 환경은 오늘날 매우 다릅니다. 그렇기 때문에 신중하게 최적화 된 시각적 리소스를 구현하고 뷰포트 및 장치의 다양한 기능을 제공 할 수 있도록 특별한주의를 기울여야합니다. 다행히도 Responsive Images Community Group (<a href="https://responsiveimages.org/" target="_blank" rel="external">https://responsiveimages.org/</a>) 덕분에 우리는 picture요소 및 srcset속성 (둘 다 85 % 이상 지원)을 제공 할 수 있습니다.</p>
+<h2 id="이미지의-srcset속성"><a href="#이미지의-srcset속성" class="headerlink" title="이미지의 srcset속성"></a>이미지의 srcset속성</h2><p>srcset사용자의 화면 밀도와 크기를 기반으로 이미지를 표시하고자 할 때 해상도 전환 시나리오에서 가장 효과적입니다. 미리 정의 된 규칙의 집합을 기반으로 srcset하고 sizes브라우저가 뷰포트에 따라 제공하는 최상의 이미지를 선택합니다 속성. 이 기술은 특히 모바일 사용자를 위해 대역폭을 크게 늘리고 절감을 요청할 수 있습니다.<br><img src="https://cdn-images-1.medium.com/max/800/1*87BIfYsjZTh-bikjmp7eow.png" alt="imagelink3"></p>
+<h2 id="picture-요소"><a href="#picture-요소" class="headerlink" title="picture 요소"></a>picture 요소</h2><p>picture요소 및 media속성은 아트 방향을 쉽게 만들 수 있도록 설계되었습니다. 다양한 조건에 대해 다양한 소스를 제공함으로써 (테스트를 통해 테스트 됨 media-queries), 우리는 해상도에 관계없이 항상 가장 중요한 이미지 요소를 주목할 수있게되었습니다.<br><img src="https://cdn-images-1.medium.com/max/800/1*NeyfH6Vu1xCWE2SY5w1cDQ.png" alt="imagelink4"></p>
+<blockquote>
+<p>두 가지 접근법에 대한 철저한 설명은 Jason Grigsby의 Responsive Images 101 가이드 를 읽으십시오 .<br>(<a href="https://cloudfour.com/thinks/responsive-images-101-definitions/" target="_blank" rel="external">https://cloudfour.com/thinks/responsive-images-101-definitions/</a>)</p>
+</blockquote>
+<h2 id="이미지-CDN-제공"><a href="#이미지-CDN-제공" class="headerlink" title="이미지 CDN 제공"></a>이미지 CDN 제공</h2><p>성능에 대한 마지막 단계는 전달입니다. 모든 asset은 콘텐츠 전송 네트워크를 사용하면 이익을 얻을 수 있지만 Cloudinary 또는 imgx 와 같이 이미지를 타겟팅하는 특정 도구가 있습니다 . 이러한 서비스를 사용하면 서버의 트래픽을 줄이고 응답 대기 시간을 크게 줄일 수 있습니다.</p>
+<p>CDN은 이미지가 많은 사이트에서 응답 성이 뛰어난 최적화 된 자산을 제공함으로써 많은 복잡성을 겪을 수 있습니다. 오퍼링은 다르기는하지만 대부분의 경우 크기 조정, 자르기 및 장치 및 브라우저를 기반으로 사용자에게 제공하는 것이 가장 적합한 형식 결정을 처리합니다.<br>그 이상의 것 - 그들은 압축, 픽셀 밀도 감지, 워터 마크, 얼굴 인식 및 후 처리를 허용합니다. 이러한 강력한 기능과 사용자 중심의 이미지를 제공하는 URL에 매개 변수를 추가 할 수있는 기능이 있습니다.</p>
+<h3 id="이미지-성능-점검표"><a href="#이미지-성능-점검표" class="headerlink" title="이미지 성능 점검표"></a>이미지 성능 점검표</h3><ol>
+<li>올바른 형식 선택</li>
+<li>가능하면 벡터 사용</li>
+<li>변화가 눈에 띄지 않으면 품질을 낮추십시오.</li>
+<li>새로운 형식으로 실험 해보기</li>
+<li>도구 및 알고리즘으로 최적화</li>
+<li>srcset및picture 에 대해 알아보기 </li>
+<li>이미지 CDN 사용</li>
+</ol>
+<h2 id="웹-글꼴-최적화"><a href="#웹-글꼴-최적화" class="headerlink" title="웹 글꼴 최적화"></a>웹 글꼴 최적화</h2><p>사용자 정의 글꼴을 사용할 수있는 기능은 매우 강력한 디자인 도구입니다.<br>하지만 강력하지만 많은 책임을 가지고 있다. 웹 글꼴을 사용하는 웹 사이트의 68%가 이 유형의 자산은 가장 큰 성능 위반자중 하나입니다. (쉽게 1백킬로바이트 평균 변형 및 서체의 수에 따라).<br>무게가 가장 중요한 문제가 아니더라도, 보이지 않는 텍스트 (FOIT)의 플래시입니다 . FOIT는 웹 글꼴이 여전히로드되거나 가져 오지 못한 경우에 발생합니다. 그러면 빈 페이지가 생겨 액세스 할 수없는 내용이됩니다. 웹 글꼴이 필요한지 여부 를 신중하게 검토하는 것이 가치가있을 수 있습니다. 그렇다면 실적에 부정적인 영향을 줄 수있는 몇 가지 전략이 있습니다.</p>
+<h2 id="웹글꼴의-올바른-형식-선택"><a href="#웹글꼴의-올바른-형식-선택" class="headerlink" title="웹글꼴의 올바른 형식 선택"></a>웹글꼴의 올바른 형식 선택</h2><p>EOT, TTF, WOFF 및 최근 WOFF2의 네 가지 웹 글꼴 형식이 있습니다. TTF와 WOFF가 가장 널리 채택되어 90 % 이상의 브라우저 지원을 자랑합니다. 타겟팅하는 지원에 따라 WOFF2를 제공 하고 이전 브라우저의 경우 WOFF로 대체 하는 것이 가장 안전 합니다. WOFF2를 사용하는 장점은 사용자 지정 사전 처리 및 압축 알고리즘 (예 : Brotli )의 조합으로 인해 약 30 %의 파일 크기 감소 및 향상된 구문 분석 기능입니다. </p>
+<p>웹 글꼴 소스를 정의 할 때 @font-face사용할 format()형식을 지정하는 힌트를 사용하십시오 .</p>
+<p>글꼴을 제공하기 위해 Google Fonts 또는 Typekit을 사용하는 경우이 두 도구는 실적 발자국을 완화하기위한 몇 가지 전략을 구현했습니다. Typekit은 이제 모든 키트를 비동기 적으로 지원하므로 FOIT를 방지 할뿐만 아니라 JavaScript 키트 코드 (10 분이 아닌)를 10 일 연장 할 수 있습니다. Google 글꼴은 사용자 기기의 기능에 따라 가장 작은 파일을 자동으로 제공합니다.</p>
+<h2 id="감사-글꼴-선택"><a href="#감사-글꼴-선택" class="headerlink" title="감사 글꼴 선택"></a>감사 글꼴 선택</h2><p>셀프 호스팅 여부와 관계없이 서체 수, 글꼴 두께 및 스타일이 성능 예산에 중요한 영향을 미칩니다.<br>이상적으로, 우리는 보통이고 대담한 문체 변형을 특징으로하는 한 서체로 벗어날 수 있습니다. 글꼴 선택 방법을 잘 모르는 경우 Lara Hogan의 칭량 미학과 성능을 참조하십시오.<br>(<a href="http://designingforperformance.com/weighing-aesthetics-and-performance/" target="_blank" rel="external">http://designingforperformance.com/weighing-aesthetics-and-performance/</a>)</p>
+<h2 id="유니-코드-범위-하위-집합-사용"><a href="#유니-코드-범위-하위-집합-사용" class="headerlink" title="유니 코드 범위 하위 집합 사용"></a>유니 코드 범위 하위 집합 사용</h2><p>유니 코드 범위 하위 집합을 사용하면 큰 글꼴을 더 작은 집합으로 분할 할 수 있습니다. 상대적으로 진보 된 전략이지만 특히 아시아 언어를 타겟팅 할 때 상당한 절약 효과를 가져올 수 있습니다 (중국어 글꼴의 평균 글꼴 크기는 20,000 글리프입니까?). 첫 번째 단계는 글꼴을 라틴어, 그리스어 또는 키릴 어와 같이 필요한 언어 집합으로 제한하는 것입니다. 웹 글꼴이 로고 유형 사용에만 필요하면 유니 코드 범위 설명자를 사용하여 특정 문자를 선택하는 것이 좋습니다.<br>Filament Group 은 파일이나 URL을 기반으로 필요한 글리프 목록을 생성 할 수있는 글리프 행거 (glyph hanger) 라는 오픈 소스 명령 줄 유틸리티를 출시했습니다 . 또는 웹 기반 글꼴 다람쥐 웹 글꼴 생성기 는 고급 하위 설정 및 최적화 옵션을 제공합니다. Google Fonts 또는 Typekit을 사용하는 경우 서체 선택기 인터페이스에 언어 하위 집합을 선택하면 기본 하위 집합을 더 쉽게 만들 수 있습니다.</p>
+<h2 id="글꼴로드-전략-수립"><a href="#글꼴로드-전략-수립" class="headerlink" title="글꼴로드 전략 수립"></a>글꼴로드 전략 수립</h2><p>브라우저는 DOM과 CSSOM을 모두 빌드해야하기 때문에 글꼴은 렌더링을 차단합니다. 웹 글꼴은 기존 노드와 일치하는 CSS 선택기에서 사용되기 전에 다운로드되지 않습니다. 이 동작으로 인해 텍스트 렌더링이 상당히 지연 되어 이전에 언급 한 FOIT (Flash of Invisible Text)가 발생합니다. FOIT는 느린 네트워크 및 모바일 장치에서 더욱 두드러집니다.</p>
+<p>글꼴로드 전략을 구현하면 사용자가 귀하의 콘텐츠에 액세스 할 수 없게됩니다. 종종 FAS (Flash of Unstyled Text)를 선택하는 것이 가장 쉽고 효과적인 솔루션입니다.</p>
+<p>font-display비 자바 스크립트 의존 솔루션을 제공하는 새로운 CSS 속성입니다. 불행히도, 부분적인 지원 (크롬과 오페라 전용)을 가지고 있으며 현재 Firefox와 WebKit에서 개발 중에 있습니다. 여전히 다른 글꼴 로딩 메커니즘과 함께 사용할 수 있고 사용해야합니다.<br>![imageurl4] (<a href="https://cdn-images-1.medium.com/max/800/1*Kuky8fVepcjU3tMbTjewdw.png" target="_blank" rel="external">https://cdn-images-1.medium.com/max/800/1*Kuky8fVepcjU3tMbTjewdw.png</a>)</p>
+<p>다행히 Typekit의 Web Font Loader 와 Bram Stein의 Font Face Observer 는 글꼴 로딩 동작을 관리하는 데 도움이 될 수 있습니다. 또한 웹 글꼴 성능 전문가 인 Zach Leatherman은 글꼴로드 전략에 대한 포괄적 인 안내서를 게시 하여 프로젝트에 올바른 방법을 선택하는 데 도움을줍니다. (<a href="https://www.zachleat.com/web/comprehensive-webfonts/" target="_blank" rel="external">https://www.zachleat.com/web/comprehensive-webfonts/</a>)</p>
+<h3 id="웹-폰트-성능-체크리스트"><a href="#웹-폰트-성능-체크리스트" class="headerlink" title="웹 폰트 성능 체크리스트"></a>웹 폰트 성능 체크리스트</h3><ol>
+<li>적절한 형식 선택</li>
+<li>글꼴 선택 감사</li>
+<li>유니 코드 범위 하위 집합 사용</li>
+<li>글꼴로드 전략 수립</li>
+</ol>
+<h2 id="자바-스크립트-최적화"><a href="#자바-스크립트-최적화" class="headerlink" title="자바 스크립트 최적화"></a>자바 스크립트 최적화</h2><p>현재 JavaScript 번들의 평균 크기는 446KB 이며, 이미 이미지 크기에 따라 두 번째로 큰 asset 유형이됩니다.</p>
+<blockquote>
+<p>우리가 깨닫지 못할 수도있는 점은 우리가 사랑하는 자바 스크립트 뒤에 숨겨진 성능 병목 현상이 훨씬 더 심각 하다는 것입니다 .</p>
+</blockquote>
+<h2 id="얼마나-많은-JavaScript가-전달되는지-모니터하십시오"><a href="#얼마나-많은-JavaScript가-전달되는지-모니터하십시오" class="headerlink" title="얼마나 많은 JavaScript가 전달되는지 모니터하십시오."></a>얼마나 많은 JavaScript가 전달되는지 모니터하십시오.</h2><p>최적화 된 전달은 웹 페이지 팽창을 막기위한 한 걸음입니다. 자바 스크립트를 다운로드 한 후에는 브라우저에서 파싱, 컴파일 및 실행해야합니다. 몇 가지 인기있는 사이트를 간략히 살펴보면 포장을 풀면gzipped JS가 최소 3 배 이상 커 집니다. 효과적으로, 우리는 코드의 거대한 얼룩을 전선 아래로 보내고 있습니다.<br>![imageurl5] (<a href="https://cdn-images-1.medium.com/max/800/1*Yrn4kTkaYHX0PWj4HB-mQg.jpeg" target="_blank" rel="external">https://cdn-images-1.medium.com/max/800/1*Yrn4kTkaYHX0PWj4HB-mQg.jpeg</a>)</p>
+<p>분석 및 분석 시간 분석은 앱이 언제 상호 작용할 준비가되었는지를 이해하는 데 중요합니다. 이러한 타이밍은 사용자 장치의 하드웨어 기능에 따라 크게 다릅니다. 파싱 ​​및 컴파일은 로우 엔드 모바일에서 2-5 배 높일 수 있습니다 . Addy의 조사에 따르면 평균적인 전화에서 앱은 대화 형 상태에 도달하는 데 16 초가 걸리고 데스크톱에서는 8 초가 걸리는 것으로 나타났습니다. 이러한 통계를 분석하는 것이 중요하며 다행스럽게도 Chrome DevTools를 통해이를 수행 할 수 있습니다.<br><img src="https://cdn-images-1.medium.com/max/800/1*eV83YP2fnoOllUleaWa5lw.gif" alt="imageurl6"><br>JavaScript Addy Osmani의 JavaScript 시작 성능 에 대한 자세한 내용을 읽으십시오 .(<a href="https://medium.com/reloading/javascript-start-up-performance-69200f43b201" target="_blank" rel="external">https://medium.com/reloading/javascript-start-up-performance-69200f43b201</a>)</p>
+<h2 id="불필요한-의존성-제거"><a href="#불필요한-의존성-제거" class="headerlink" title="불필요한 의존성 제거"></a>불필요한 의존성 제거</h2><p>현대 패키지 관리자가 작업하는 방식은 종속성의 수와 크기를 쉽게 가려 낼 수 있습니다. webpack-bundle-analyzer 및 Bundle Buddy 는 코드 중복, 가장 큰 성능 위반자 및 오래된 불필요한 종속성을 식별하는 데 도움이되는 훌륭한 시각 도구입니다.<br><img src="https://cdn-images-1.medium.com/max/800/1*dusVhPiL44VDoS4gJHMWSg.gif" alt="imageurl7"></p>
+<h6 id="작동중인-Webpack-번들-분석기"><a href="#작동중인-Webpack-번들-분석기" class="headerlink" title="작동중인 Webpack 번들 분석기."></a>작동중인 Webpack 번들 분석기.</h6><p>VS 코드 와 Atom 을 Import Cost확장 하면 가져온 패키지 비용을 훨씬 더 쉽게 볼 수 있습니다.<br><img src="https://cdn-images-1.medium.com/max/800/1*LbfI4D9XXiZYS1Slwsys5g.gif" alt="imageurl8"></p>
+<h2 id="코드-분할-구현"><a href="#코드-분할-구현" class="headerlink" title="코드 분할 구현"></a>코드 분할 구현</h2><p>가능할 때마다 필요한 사용자 경험을 생성하는 데 필요한 asset만 제공해야합니다 . bundle.js사용자에게 보이지 않는 코드 처리 상호 작용을 포함 하여 전체 파일을 보내는 것은 최적이 아닙니다 (방문 페이지를 방문 할 때 전체 앱을 처리하는 자바 스크립트를 다운로드하는 경우). 마찬가지로 특정 브라우저 또는 사용자 에이전트를 타겟팅하는 코드를 보편적으로 게재해서는 안됩니다.</p>
+<p>가장 널리 사용되는 모듈 번들 중 하나 인 Webpack에는 코드 분할 지원이 제공 됩니다. 가장 간단한 코드 분할은 페이지 당 ( home.js방문 페이지, contact.js연락처 페이지 등) 구현할 수 있지만 Webpack은 동적 가져 오기 또는 지연로드 와 같은 고급 전략을 제공 하므로 조사 할 가치가 있습니다.</p>
+<h2 id="대안-프레임-워크-고려"><a href="#대안-프레임-워크-고려" class="headerlink" title="대안 프레임 워크 고려"></a>대안 프레임 워크 고려</h2><p>JavaScript 프론트 엔드 프레임 워크는 끊임없이 증가하고 있습니다. 스크립트 2016 설문 조사따르면 React은 가장 인기있는 프레임웍입니다. 조심스럽게 아키텍처 선택 사항을 검사 하겠지만 Preact 와 같은 훨씬 가벼운 대안을 사용하는 것이 더 나을 것 입니다 (Preact는 완전한 React 구현, 높은 성능의 적은 가상 DOM 라이브러리 임).<br>(참고 preact : <a href="https://preactjs.com/" target="_blank" rel="external">https://preactjs.com/</a>)<br>마찬가지로, 우리는 작은 대안을 더 큰 라이브러리를 교체 할 수 있습니다 -  moment.js에 대한 date-fns(또는 특별한 경우에 moment.js 제거되지 않은locales).<br>새 프로젝트를 시작하기 전에 어떤 종류의 기능이 필요한지 결정하고 필요와 목표에 가장 적합한 프레임 워크를 선택하는 것이 좋습니다. 때로는 바닐라가 자바 ​​스크립트를 대신하는 것을 의미 할 수도 있습니다.</p>
+<h3 id="자바-스크립트-성능-체크리스트"><a href="#자바-스크립트-성능-체크리스트" class="headerlink" title="자바 스크립트 성능 체크리스트"></a>자바 스크립트 성능 체크리스트</h3><ol>
+<li>얼마나 많은 JavaScript가 전달되는지 모니터하십시오.</li>
+<li>불필요한 의존성 제거</li>
+<li>코드 분할 구현</li>
+<li>대안 프레임 워크 고려</li>
+</ol>
+<h2 id="추적-성능-및-앞으로의-도로"><a href="#추적-성능-및-앞으로의-도로" class="headerlink" title="추적 성능 및 앞으로의 도로"></a>추적 성능 및 앞으로의 도로</h2><p>우리는 대부분의 경우 구축 중인 제품의 사용자 경험에 긍정적인 변화를 가져올 수있는 몇 가지 전략에 대해 이야기했습니다.<br>성능은 까다로운 짐승이 될 수 있으며, 우리의 비틀기의 장기적인 결과를 추적하는 것이 필요합니다.</p>
+<h2 id="사용자-중심의-성과-측정-기준"><a href="#사용자-중심의-성과-측정-기준" class="headerlink" title="사용자 중심의 성과 측정 기준"></a>사용자 중심의 성과 측정 기준</h2><p>뛰어난 성능 측정 기준은 가능한 사용자 경험을 묘사하는데 근접하는 것을 목표로 합니다. 오랫동안 onLoad, onContentLoaded또는 SpeedIndex에 기반하여 사이트가 얼마나 빨리 상호작용할 수 있는지에 대해 알려주지 않습니다.<br>asset 전달에만 집중할 경우 인지 된 성과 를 수치화하는 것은 쉽지 않습니다 . 다행스럽게도 콘텐츠가 얼마나 빨리 표시되고 대화식으로 표시되는지에 대한 포괄적인 그림을 그리는 몇 가지 타이밍이 있습니다.<br>이러한 측정 항목은 First Paint, First Meaningful Paint, Visually Complete 및 Interactive Time입니다.<br><img src="https://cdn-images-1.medium.com/max/800/1*fjqW4fRUD7iIrzcKfUkfIg.png" alt="imageurl9"></p>
+<blockquote>
+<p>첫 번째 페인트 : 브라우저가 흰색 화면에서 첫 번째 시각적 변경으로 변경되었습니다.<br>첫 번째 의미있는 페인트 : 텍스트, 이미지 및 주요 항목을 볼 수 있습니다.<br>시각적으로 완료 : 뷰포트의 모든 내용이 표시됩니다.<br>대화형 시간 : 뷰포트의 모든 내용이 표시되며 상호 작용할 준비가되었습니다 (주요한 주요 스레드 JavaScript 활동 없음).</p>
+</blockquote>
+<p>이러한 타이밍은 사용자가 보는 것과 직접적으로 일치하므로 추적을위한 훌륭한 후보자가됩니다. 가능하다면 모두를 기록하고 그렇지 않으면 1-2 가지를 선택하여인지 된 성능을 더 잘 이해하십시오. 다른 측정 항목들, 특히 우리가 전송하는 바이트 수 (최적화 및 압축 해제)에 주목할 필요가 있습니다.</p>
+<h2 id="실적-예산-설정"><a href="#실적-예산-설정" class="headerlink" title="실적 예산 설정"></a>실적 예산 설정</h2><p>이 수치들은 모두 혼란스러워지고 이해하기가 번거로울 수 있습니다. 실행 가능한 목표와 목표가 없으면 달성하려는 목표를 추적하기가 쉽습니다. 몇 년 전 Tim Kadlec 은 실적 예산 의 개념에 관해 썼습니다.<br>(<a href="https://timkadlec.com/2013/01/setting-a-performance-budget/" target="_blank" rel="external">https://timkadlec.com/2013/01/setting-a-performance-budget/</a>)</p>
+<p>불행히도, 그들을 설정하는 마법의 공식은 없습니다. 성능 예산은 종종 각 비즈니스에 고유 한 경쟁력 분석 및 제품 목표에 따라 결정됩니다.</p>
+<p>예산을 정할 때 눈에 띄는 차이를 목표로하는 것이 중요합니다. 이 차이는 일반적으로 최소 20 % 개선에 해당합니다. Lara Hogan의 접근 방식 인 새로운 디자인에 성능 예산 을 참고로 하여 예산을 실험하고 반복하십시오 .</p>
+<p>Performance 예산 생성을 돕기 위해 성능 예산 계산기(<a href="http://www.performancebudget.io/" target="_blank" rel="external">http://www.performancebudget.io/</a>) 또는 <a href="https://browserdiet.com/calories/" target="_blank" rel="external">https://browserdiet.com/calories/</a> 을 사용해보십시오 .</p>
+<h2 id="지속적인-모니터링"><a href="#지속적인-모니터링" class="headerlink" title="지속적인 모니터링"></a>지속적인 모니터링</h2><p>모니터링 성능은 수동으로해서는 안됩니다. 포괄적 인보고 기능을 제공하는 몇 가지 강력한 도구가 있습니다.</p>
+<p>Google Lighthouse 는 성능, 접근성, 점진적인 웹 앱 등을 감사하는 오픈 소스 프로젝트입니다. 등대를 명령 줄에서 사용하거나 최근에 바로 Chrome 개발자 도구에서 직접 사용할 수 있습니다.<br><img src="https://cdn-images-1.medium.com/max/800/1*T3HA3VrN48JsCAHWFfnu3g.gif" alt="imageurl11"></p>
+<p>성능 예산, 장치 에뮬레이션, 분산 모니터링 및 신중하게  구축하지 않고 얻을 수 없는 많은 다른 기능을 제공 하는 Calibre를 통해 지속적으로 추적합니다.<br><img src="https://cdn-images-1.medium.com/max/800/1*LTFZ7zMASCWUz3r0eqXdoQ.gif" alt="imageurl12"></p>
+<p>어디를 추적하든 데이터를 투명하게 만들어 전체 팀 또는 소규모 조직에서 전체 비즈니스에 액세스 할 수있게하십시오.</p>
+<blockquote>
+<p>성과는 개발자 팀 이상의 공유 책임입니다. 우리는 역할이나 직함에 상관없이 우리가 만드는 사용자 경험에 대해 책임을집니다.</p>
+</blockquote>
+<p>속도를 옹호하고 협업 프로세스를 수립하여 제품 결정이나 설계 단계에서 가능한 병목 현상을 찾아내는 것이 매우 중요합니다.</p>
+<h2 id="성능에-인식-및-공감-수립"><a href="#성능에-인식-및-공감-수립" class="headerlink" title="성능에 인식 및 공감 수립"></a>성능에 인식 및 공감 수립</h2><p>성능에 신경을 쓰는 것은 비즈니스 목표 일뿐 아니라 영업 통계를 통해 판매해야하는 경우 PWA 통계를 사용 하여 수행해야 합니다. 그것은 기본적인 공감과 사용자의 최대 관심을 가장 먼저 생각합니다.</p>
+<blockquote>
+<p>기술자로서 사람들이 행복하게 다른 곳에서 보낼 수있는 관심과 시간을 납치하지 않는 것이 우리의 책임입니다. 우리의 목표는 시간과 인간의 초점을 의식한 도구 를 만드는 것입니다.</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://devhaeyeon.github.io/2017/12/03/web-performance/" data-id="cjas4y19l0000m9ecey0hklnw" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-webgl-casestudy" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/12/03/webgl-casestudy/" class="article-date">
+  <time datetime="2017-12-03T12:21:54.000Z" itemprop="datePublished">2017-12-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/03/webgl-casestudy/">WebGL을 사용한 애니메이션 및 상호 작용 기법 탐색 (사례 연구)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>아래의 글은 번역을 하였음을 사전에 알려 드립니다<br>출처 : <a href="http://zuu.kr/izge" target="_blank" rel="external">http://zuu.kr/izge</a><br>작성자 : Karim Maaloul</p>
+</blockquote>
+<p>코드펜에서 짧은 WebGL을 작업을 하다 이 사이트에서(<a href="https://moments.epic.net/" target="_blank" rel="external">https://moments.epic.net/</a>)<br>다양한 애니메이션 및 인터렉션을 찾아내기 시작하였다.</p>
+<p>각 게임마다 게임 플레이는 매우 다르지만, 모든 실험은 하나의 원칙을 공유합니다.</p>
+<p> 각 캐릭터의 행동은 프로그래밍 방식으로 사용자 입력에 응답합니다.<br> (미리 계산 된 애니메이션 없음)<br> 모든 동작은 런타임에 정의됩니다.<br> 단 몇 줄의 코드만으로 이러한 캐릭터에 생명을 불어 넣는 것이 주요 과제였습니다.</p>
+<h2 id="제약-조건"><a href="#제약-조건" class="headerlink" title="제약 조건"></a>제약 조건</h2><p>주로 three.js(<a href="https://threejs.org/" target="_blank" rel="external">https://threejs.org/</a>) 및 GreenSock 라이브러리(<a href="https://greensock.com/)를" target="_blank" rel="external">https://greensock.com/)를</a> 사용하여 제작 된 이 실험은 3D 또는 애니메이션 소프트웨어를 사용하지 않고 손으로 직접 코딩했습니다.</p>
+<p>이 과정은 한 번에 한 큐브 씩 프로그래밍 방식으로 문자를 형성하는 것으로 구성됩니다. 대부분의 노력은 코드의 값을 미세 조정하여 비율, 위치 및 전체 렌더링을 수정 한 다음 마지막으로 사용자 입력 (마우스 이동, 클릭, 드래그 등)에 따라 각 파트를 이동하는 데 소요되었습니다.</p>
+<p> 이 프로세스의 이점은 분명하지 않습니다. 하지만 텍스트 편집기 만 사용하여 전체 실험을 만들 수 있으므로 많은 도구를 사용하여 자산을 내보내고 문자의 속성을 조정하는 모든 노력을 피할 수 있습니다. Codepen에서 제공하는 실시간 미리보기를 활용 하면 전체 프로세스가 매우 유연 해졌 습니다.</p>
+<p> 즉, 프로세스는 관리하기 쉽도록 자체적 인 제약 조건을 갖게되었습니다. 가능한 한 적은 수의 파트로 문자를 작성해야했습니다. 각 부분은 매우 낮은 수의 정점으로 구성됩니다. 애니메이션은 제한된 수의 행동을 목표로해야했습니다.</p>
+<p> 참고 : 이 과정은 3D 앱이 마음에 들면 모델을 만들 때 사용하는 것이 좋습니다. 가능한 한 효과적 이도록 자신의 기술간에 올바른 균형을 찾는 것입니다. 필자의 경우 모든 프로세스를 하나의 도구로 유지할 때 훨씬 효율적입니다.</p>
+<p><img src="https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/04db1828-53f7-4ef0-87b9-5809e9377ea6/moments-of-happiness-800w-opt.png" alt="img1"></p>
+<h2 id="제약-조건을-기회로-전환"><a href="#제약-조건을-기회로-전환" class="headerlink" title="제약 조건을 기회로 전환"></a>제약 조건을 기회로 전환</h2><p>이 과정에서 요구되는 미니멀리즘은 궁극적으로 각 행동 (편안함, 기쁨, 실망 등)을 묘사하는 가장 정확한 동작을 찾는 좋은 기회였습니다.</p>
+<p>모든 입방체와 모든 움직임에 대해 질문을 받았다. 나는 이것을 정말로 필요로 하는가? 그것은 경험을 더 좋게 만들지 않습니까, 아니면 그냥 열렬한 캐릭터 디자이너의 변덕입니까?</p>
+<p>나는 매우 단순한 장난감으로 끝을 맺었습니다. 모두 조용하고 미니멀 한 환경에 살고있었습니다.</p>
+<p>프로그래밍 방식으로 사물을 애니메이션화하는 것은 아마도 가장 큰 도전이었습니다. 애니메이션 소프트웨어 나 시각적 타임 라인없이 자연 및 유기적인 움직임을 어떻게 조성합니까? 이 애니메이션을 자연스러운 상태에서 사용자 입력에 어떻게 응답합니까?</p>
+<p><img src="https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/53a006b3-6570-4602-b557-dd194378bf45/moments-of-happiness-dragon.gif" alt="img2"></p>
+<h2 id="1-단계-관측"><a href="#1-단계-관측" class="headerlink" title="1 단계 : 관측"></a>1 단계 : 관측</h2><p>이 실험을 시작하기 전에 나는 전하고 싶었던 느낌을 관찰하고 기억하고 고안하는 데 시간을 보냈다.</p>
+<p>Chill the Lion을 만들 때까지, 나의 개를 애 태우는 것은 영감의 위대한 원천이되었습니다. 나는 그가 즐거움을 위해 눈을 감은 방법을 관찰하고 그의 목에 긁힘을달라고 요청했다. 프로그래밍 방식으로이를 번역 할 올바른 알고리즘을 찾는 것은 공감과 기본 수학 기술을 혼합 한 것입니다.<br><img src="https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/431d55c0-9712-4196-8dd6-85b14088a9f1/moments-of-happiness-lion.gif" alt="img3"></p>
+<p>“paranoid 새”(아래)에 대해, 나는 한순간의 표정을 가진 불편한 외모를 모방 한 것을 기억하고, 얼마나 많은 시간이 눈과 머리 움직임을 분리했는지 알아내어 설득력있는 행동을 보이도록 노력했습니다.<br><img src="https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/ced05c55-bb18-48d7-b6cb-b9051847326d/moments-of-happiness-birds.gif" alt="img4"></p>
+<p>그러나 때때로, 당신은 당신의 자신의 경험에 의지 할 수 없습니다. 시각적 영감은 때때로 특정 형태을 파악하는 데 필요합니다. 다행히도, 어떤 종류의 미묘한 표현을 찾을 수있는 Giphy 가 있습니다. YouTube와 Vimeo에서 올바른 움직임을 찾기 위해 많은 시간을 보냈습니다.</p>
+<h2 id="실행주기-관찰"><a href="#실행주기-관찰" class="headerlink" title="실행주기 관찰"></a>실행주기 관찰</h2><p>행복의 순간에 만들어야 할 가장 까다로운 애니메이션 중 하나는 토끼가 늑대에게서 달아나는<a href="https://moments.epic.net/#rabbit" target="_blank" rel="external">https://moments.epic.net/#rabbit</a>) 것이 었습니다.<br><img src="https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/0e8f9b9c-c4eb-4302-a084-8d51cefc26ab/moments-of-happiness-rabbit.gif" alt="img5"> </p>
+<p>이를 달성하기 위해서는 먼저 실행주기가 어떻게 작동하는지 이해하는 것이 중요합니다. Giphy에서 사용할 수있는 가장 흥미로운 슬로우 모션 GIF를 살펴 보았습니다.<br><img src="https://media.giphy.com/media/NmGbJwLl7Y4lG/giphy.gif" alt="img6"></p>
+<p>이 GIF에서 흥미로운 점은 달리기는 다리를 움직이는 것만이 아니라는 것입니다.<br>그것은 몸 전체에 관한 것입니다. 가장 작은 부분을 포함하여 완벽한 동기화로 움직입니다. 속도와 중력의 느김을 높이기 위해 참여하는 귀, 입, 심지어 혀를 보면 알 수 있습니다.</p>
+<p>진실은 동물과 달리기가 가능한 한 많은 실행주기가 있다는 것입니다. 달리기 사이클을 파헤 치고 싶다면 좀 더 정확한 참조 정보를 얻는 것이 좋지 않을 것입니다. 두 가지 유용한 자료는 Pinterest 의 “Run Cycle”컬렉션(<a href="https://www.pinterest.co.kr/c3ck1na/run-cycle/?lp=true" target="_blank" rel="external">https://www.pinterest.co.kr/c3ck1na/run-cycle/?lp=true</a>) 과 멋진 “ Quadruped Locomotion Tutorial” (<a href="https://vimeo.com/202205778)비디오입니다" target="_blank" rel="external">https://vimeo.com/202205778)비디오입니다</a>.</p>
+<p>이러한 연구를 보면 각 실행주기의 역학이보다 명확 해집니다. 당신의 두뇌는 신체의 각 부분 사이의 관계를 파악하기 시작할 것이고, 경기의 순서와 리듬은 순환적이고 반복적이며 재현 가능한 형태를 나타낼 것입니다.</p>
+<p>이제 이를 달성하기위한 기술적 인 솔루션이 필요합니다.</p>
+<h2 id="관찰-자동화"><a href="#관찰-자동화" class="headerlink" title="관찰 자동화"></a>관찰 자동화</h2><p>하나의 핸들을 돌릴 때 복잡한 동작을하는 기계식 장난감에 흥미를 느낀 저는 유사한 기술을 시도하고 타임 라인과 키 프레임보다 프로세스에 더 적합한 코드 기반 솔루션을 탐색하려고했습니다.</p>
+<p>단순하거나 복잡한 루핑 동작은 전적으로 한주기의 진행에 달려 있다고 생각 합니다 .<br><img src="https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/e7ceaa94-b297-43ee-9cb7-838ed8d84bd8/boat.gif" alt="img7"></p>
+<p>달리기 사이클에서, 이는 각 다리, 귀, 눈, 몸체 및 머리의 움직임이 동일한 주주기에 의해 유발된다는 것을 의미합니다. 어떤 경우에는 생성 된 회전이 수평 이동으로 변환되고 다른 경우에는 수직으로 변환됩니다.</p>
+<p>원형 운동을 선형 운동으로 변환 할 때 삼각법이 최선의 선택 인 것 같습니다.</p>
+<h2 id="2-단계-무기를-연마하고-삼각법을-배우십시오"><a href="#2-단계-무기를-연마하고-삼각법을-배우십시오" class="headerlink" title="2 단계 : 무기를 연마하고 삼각법을 배우십시오."></a>2 단계 : 무기를 연마하고 삼각법을 배우십시오.</h2><p>도망 가지 마! 여기에 필요한 삼각법의 종류는 매우 기본입니다. 대부분의 수식은 다음과 같습니다.</p>
+<p><code>x = cos(angle)*distance;
+y = sin(angle)*distance;</code></p>
+<p>이것은 기본적으로 점의 극좌표 (각도, 거리)를 직교 좌표 (x, y)로 변환하는 데 사용됩니다.</p>
+<p>각도를 변화시킴으로써 우리는 점을 중심 주위로 회전시킬 수 있습니다.<br><img src="https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/bf1b140f-3097-4cfc-a765-91fb05de04d8/moments-of-happiness-circle1.gif" alt="img9"></p>
+<p>삼각법 덕분에 우리는 수식의 다른 값으로 놀아서 훨씬 더 정교한 운동을 할 수 있습니다. 이 기술의 아름다움은 당신이 운동에서 얻는 부드러움입니다.</p>
+<p>여기 몇 가지 예가 있습니다.<br><img src="https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/2618b6f1-95e6-490c-90b7-95f7d3a8e794/moments-of-happiness-circles2.gif" alt="img10"></p>
+<h2 id="실습"><a href="#실습" class="headerlink" title="실습!"></a>실습!</h2><p>삼각법을 이해하려면 손을 더럽혀야 합니다.<br>경험이없는 이론은 단순한 지적 놀이이다.</p>
+<p>위의 수식 중 일부를 구현하려면 기본 환경을 설정해야합니다. 이 작업은 canvas, SVG 또는 three.js , PixiJS 또는 BabylonJS 와 같은 그래픽 API가있는 라이브러리를 사용하여 수행 할 수 있습니다 .</p>
+<p>매우 기본적인 three.js 설정을 살펴 보겠습니다.</p>
+<p>먼저 최신 버전의 three.js를 다운로드하고 라이브러리를 html머리글로 가져옵니다 .</p>
+<p><code>&lt;script type=&quot;text/javascript&quot; src=&quot;js/three.js&quot;&gt;&lt;/script&gt;</code></p>
+<p>HTML</p>
+<p><code>&lt;div id=&quot;world&quot;&gt;&lt;/div&gt;</code></p>
+<p>CSS</p>
+<pre><code>#world {
+position: absolute;
+width: 100%;
+height: 100%;
+overflow: hidden;
+background: #ffffff;}
+</code></pre><p>JAVASCRIPT</p>
+<pre><code>// Initialize variables.
+var scene, camera, renderer, WIDTH, HEIGHT;
+var PI = Math.PI;
+var angle = 0;
+var radius = 10;
+var cube;
+var cos = Math.cos;
+var sin = Math.sin;
+
+function init(event) {
+  // Get the container that will hold the animation.
+  var container = document.getElementById(&apos;world&apos;);
+
+  // Get window size.
+  HEIGHT = window.innerHeight;
+  WIDTH = window.innerWidth;
+
+  // Create a three.js scene; set up the camera and the renderer.
+  scene = new THREE.Scene();
+  camera = new THREE.PerspectiveCamera( 50, WIDTH / HEIGHT, 1, 2000 );
+  camera.position.z = 100;
+  renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+  renderer.setSize(WIDTH, HEIGHT);
+  renderer.setPixelRatio(window.devicePixelRatio ? window.devicePixelRatio : 1);
+  container.appendChild(renderer.domElement);
+
+  // Create the cube.
+  var geom = new THREE.CubeGeometry(16,8,8, 1);
+  var material = new THREE.MeshStandardMaterial({
+    color: 0x401A07
+  });
+  cube = new THREE.Mesh(geom, material);
+
+  // Add the cube to the scene.
+  scene.add(cube);
+
+  // Create and add a light source.
+  var globalLight = new THREE.AmbientLight(0xffffff, 1);
+  scene.add(globalLight);
+
+  // Listen to the window resize.
+  window.addEventListener(&apos;resize&apos;, handleWindowResize, false);
+
+  // Start a loop that will render the animation in each frame.
+  loop();
+}
+
+function handleWindowResize() {
+  // If the window is resized, we have to update the camera aspect ratio.
+  HEIGHT = window.innerHeight;
+  WIDTH = window.innerWidth;
+  renderer.setSize(WIDTH, HEIGHT);
+  camera.aspect = WIDTH / HEIGHT;
+  camera.updateProjectionMatrix();
+}
+
+function loop(){
+  // Call the update function in each frame to update the cube position.
+  update();
+
+  // Render the scene in each frame.
+  renderer.render(scene, camera);
+
+  // Call the loop function in next frame.
+  requestAnimationFrame(loop);
+}
+
+// Initialize the demo when the page is loaded.
+window.addEventListener(&apos;load&apos;, init, false);``
+</code></pre><p>여기서는 기본적으로 장면, 카메라, 조명 및 큐브를 만들었습니다. 그런 다음 각 프레임에서 큐브의 위치를 ​​업데이트하는 루프를 시작했습니다.</p>
+<p>이제 우리는 update()함수 를 추가 할 필요가 있습니다. 삼각 함수 공식을 삽입하여 다음과 같이 플레이 할 수 있습니다 </p>
+<pre><code>function update(){
+  // The angle is incremented by 0.1 every frame. Try higher values for faster animation.
+  angle += .1;
+
+  // Try modifying the angle and/or radius for a different movement.
+  cube.position.x = cos(angle) * radius;
+  cube.position.y = sin(angle) * radius;
+
+  // You might want to use the same principle on the rotation property of an object. Uncomment the next line to see what happens.
+  //cube.rotation.z = cos(angle) * PI/4;
+
+  //Or vary the scale. Note that 1 is added as an offset to avoid a negative scale value.
+  //cube.scale.y = 1 + cos(angle) * .5;
+
+  /*
+  Your turn! You might want to:
+  - comment or uncomment the lines above to try new combinations,
+  - replace cos by sin and vice versa,
+  - replace radius with an other cyclic function.
+  For example :
+  cube.position.x = cos(angle) * (sin(angle) *radius);
+  ...
+
+  */
+}
+</code></pre><p>잃어버린 느낌이라면 Codepen 에서 사용할 준비가 된 것 입니다. 사인 및 코사인 함수를 사용하여 큐브를 다른 방식으로 이동하고 애니메이션에 삼각법을 활용하는 방법을 더 잘 이해할 수 있습니다.</p>
+<p>또는 다음 데모로 이동하여 자신의 걷기 또는 달리기 사이클을 시작하기위한 출발점으로 사용할 수 있습니다.</p>
+<h2 id="삼각법을-사용하여-걷기-또는-달리기-사이클을-만드는-방법"><a href="#삼각법을-사용하여-걷기-또는-달리기-사이클을-만드는-방법" class="headerlink" title="삼각법을 사용하여 걷기 또는 달리기 사이클을 만드는 방법"></a>삼각법을 사용하여 걷기 또는 달리기 사이클을 만드는 방법</h2><p>이제는 코드를 사용하여 큐브를 움직이는 방법을 배웠고 동일한 원리를 사용하여 단계별로 간단한 걷기 사이클을 만들 계획입니다.</p>
+<p>우리는 이전과 같은 설정을 주로 사용합니다. 가장 큰 차이점은 다른 신체 부위를 만들기 위해 더 많은 큐브가 필요하다는 것입니다.</p>
+<p>three.js를 사용하면 다른 그룹 안에 오브젝트 그룹을 내장 할 수 있습니다. 예를 들어 다리, 팔, 머리를 지탱하는 몸체 그룹을 만들 수 있습니다.</p>
+<p>우리의 주인공이 어떻게 만들어 졌는지 보자.</p>
+<pre><code>Hero = function() {
+  // This will be incremented later at each frame and will be used as the rotation angle of the cycle.
+  this.runningCycle = 0;
+
+  // Create a mesh that will hold the body.
+  this.mesh = new THREE.Group();
+  this.body = new THREE.Group();
+  this.mesh.add(this.body);
+
+  // Create the different parts and add them to the body.
+  var torsoGeom = new THREE.CubeGeometry(8,8,8, 1);//
+  this.torso = new THREE.Mesh(torsoGeom, blueMat);
+  this.torso.position.y = 8;
+  this.torso.castShadow = true;
+  this.body.add(this.torso);
+
+  var handGeom = new THREE.CubeGeometry(3,3,3, 1);
+  this.handR = new THREE.Mesh(handGeom, brownMat);
+  this.handR.position.z=7;
+  this.handR.position.y=8;
+  this.body.add(this.handR);
+
+  this.handL = this.handR.clone();
+  this.handL.position.z = - this.handR.position.z;
+  this.body.add(this.handL);
+
+  var headGeom = new THREE.CubeGeometry(16,16,16, 1);//
+  this.head = new THREE.Mesh(headGeom, blueMat);
+  this.head.position.y = 21;
+  this.head.castShadow = true;
+  this.body.add(this.head);
+
+  var legGeom = new THREE.CubeGeometry(8,3,5, 1);
+
+  this.legR = new THREE.Mesh(legGeom, brownMat);
+  this.legR.position.x = 0;
+  this.legR.position.z = 7;
+  this.legR.position.y = 0;
+  this.legR.castShadow = true;
+  this.body.add(this.legR);
+
+  this.legL = this.legR.clone();
+  this.legL.position.z = - this.legR.position.z;
+  this.legL.castShadow = true;
+  this.body.add(this.legL);
+
+  // Ensure that every part of the body casts and receives shadows.
+  this.body.traverse(function(object) {
+    if (object instanceof THREE.Mesh) {
+      object.castShadow = true;
+      object.receiveShadow = true;
+    }
+  });
+}
+</code></pre><p>이제 이 캐릭터를 장면에 추가해야합니다.</p>
+<pre><code>function createHero() {
+  hero = new Hero();
+  scene.add(hero.mesh);
+}
+</code></pre><p>이것은 three.js로 간단한 캐릭터를 만드는 방법입니다. three.js를 사용하여 문자를 만드는 방법에 대해 자세히 알고 싶으면 Codrops에 대한 자세한 자습서 를 읽어보십시오 .</p>
+<p>이 몸체를 만든 후에는 간단한 걷기 사이클에 도달 할 때까지 점차적으로이 모든 부분을 하나씩 움직이게 할 것입니다.</p>
+<p>전체 논리는 객체 의 run함수에 위치 Hero합니다.</p>
+<pre><code>Hero.prototype.run = function(){
+
+  // Increment the angle.
+  this.runningCycle += .03;
+  var t = this.runningCycle;
+
+  // Ensure that the angle we will use is between 0 and 2 Pi.
+  t = t % (2*PI);
+
+  // Amplitude is used as the main radius of the legs movement.
+  var amp = 4;
+
+  // Update the position and rotation of every part of the body.
+  this.legR.position.x =  Math.cos(t) * amp;
+  this.legR.position.y = Math.max (0, - Math.sin(t) * amp);
+
+  this.legL.position.x =  Math.cos(t + PI) * amp;
+  this.legL.position.y = Math.max (0, - Math.sin(t + PI) * amp);
+
+  if (t&lt;PI){
+    this.legR.rotation.z = Math.cos(t * 2 + PI/2) * PI/4;
+    this.legL.rotation.z = 0;
+  } else{
+    this.legR.rotation.z = 0;
+    this.legL.rotation.z = Math.cos(t * 2 + PI/2) *  PI/4;
+  }
+
+  this.torso.position.y = 8 - Math.cos(  t * 2 ) * amp * .2;
+  this.torso.rotation.y = -Math.cos( t + PI ) * amp * .05;
+
+  this.head.position.y = 21 - Math.cos(  t * 2 ) * amp * .3;
+  this.head.rotation.x = Math.cos( t ) * amp * .02;
+  this.head.rotation.y =  Math.cos( t ) * amp * .01;
+
+  this.handR.position.x = -Math.cos( t ) * amp;
+  this.handR.rotation.z = -Math.cos( t ) * PI/8;
+  this.handL.position.x = -Math.cos( t + PI) * amp;
+  this.handL.rotation.z = -Math.cos( t + PI) * PI/8;
+}
+</code></pre><p>이 코드 라인은 가장 흥미로운 부분이지만 Codepen에서 워킹 사이클 의 전체 코드 를 찾을 수 있습니다 .(<a href="https://codepen.io/Yakudoo/pen/YxMJMv?editors=0010" target="_blank" rel="external">https://codepen.io/Yakudoo/pen/YxMJMv?editors=0010</a>)</p>
+<p>따라하기 쉽도록 다음과 같은 데모를 만들었습니다.이 데모는 동작을 분해하고 이동되는 신체 부분과 각 단계에서 사용되는 수식을 강조 표시합니다.</p>
+<p><a href="https://codepen.io/Yakudoo/pen/qXaNeN" target="_blank" rel="external">https://codepen.io/Yakudoo/pen/qXaNeN</a></p>
+<h2 id="네-차례-야"><a href="#네-차례-야" class="headerlink" title="네 차례 야!"></a>네 차례 야!</h2><p>나는 토끼와 놀지 않고 너를 보내지 않을 것이다.</p>
+<p>아래의 Codepen을 사용하면 몸의 각 부분마다 다른 각도 오프셋과 다른 진폭을 적용 할 수 있습니다. 보다 빠른 결과를 위해주기의 속도를 수정할 수도 있습니다.</p>
+<p>이 사람에 대해 다른 실행주기를 알아낼 수 있습니까? 재미있어!<br><a href="https://codepen.io/Yakudoo/pen/PjaeGV" target="_blank" rel="external">https://codepen.io/Yakudoo/pen/PjaeGV</a></p>
+<h2 id="결론"><a href="#결론" class="headerlink" title="결론"></a>결론</h2><p>코드 기반 애니메이션이 부 자연스러운 움직임을 일으킨다 고 생각할 수도 있습니다. 오히려 나는 매우 유연한 방식으로 움직임을 조정할 수있는 좋은 기회를 제공하여 자신의 성격에 맞는 설득력있는 행동을 쉽게 취할 수 있다고 믿습니다.</p>
+<p>행복의 순간 (Moments of Happiness) 은 다양한 실험의 모음이며 각 실험마다 고유 한 문제가 있습니다. 이 기사에서는 실행주기를 만드는 데 사용 된 솔루션을 자세히 설명했습니다. 내 Codepen 페이지에서이 모든 실험을 원하는대로 사용할 수 있습니다. 자유롭게 놀고 대화 형 장난감을 만들 수 있습니다.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://devhaeyeon.github.io/2017/12/03/webgl-casestudy/" data-id="cjas4y19r0002m9ecspkhrvot" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-five-js-styleguide" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/12/03/five-js-styleguide/" class="article-date">
+  <time datetime="2017-12-03T12:06:09.000Z" itemprop="datePublished">2017-12-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/03/five-js-styleguide/">5가지 자바스크립트 스타일 가이드</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>아래의 글은 번역을 하였음을 사전에 알려 드립니다<br>(출처 : <a href="http://zuu.kr/izdf" target="_blank" rel="external">http://zuu.kr/izdf</a> )</p>
+</blockquote>
+<h1 id="5가지-자바스크립트-스타일-가이드-—-Airbnb-amp-google-gitbut"><a href="#5가지-자바스크립트-스타일-가이드-—-Airbnb-amp-google-gitbut" class="headerlink" title="5가지 자바스크립트 스타일 가이드 — Airbnb &amp; google , gitbut"></a>5가지 자바스크립트 스타일 가이드 — Airbnb &amp; google , gitbut</h1><h2 id="구글러-같은-코드를-배워보자"><a href="#구글러-같은-코드를-배워보자" class="headerlink" title="구글러 같은 코드를 배워보자"></a>구글러 같은 코드를 배워보자</h2><p>자바 스크립트를 배우기 시작하거나 AirBnB와 같은 대규모 인터뷰를 준비할 때,<br>더 깨끗한 코드를 작성하는 데 도움이되는 5 가지 스타일 가이드가 있습니다.</p>
+<h2 id="스타일-가이드-란-무엇일까요"><a href="#스타일-가이드-란-무엇일까요" class="headerlink" title="스타일 가이드 란 무엇일까요?"></a>스타일 가이드 란 무엇일까요?</h2><p>스타일 가이드는 코드를 작성하고 구성하는 방법을 설명하는 표준 집합입니다.<br>이 가이드를 읽으면서 각 회사에서 코드를 작성하는 방법에 대한 아이디어를 얻을 수 있습니다.</p>
+<h2 id="스타일-가이드가-필요한-이유는-무엇입니까"><a href="#스타일-가이드가-필요한-이유는-무엇입니까" class="headerlink" title="스타일 가이드가 필요한 이유는 무엇입니까?"></a>스타일 가이드가 필요한 이유는 무엇입니까?</h2><p>한 가지 주된 이유로는 누구나 코드를 다르게 작성합니다.<br>한 가지 방법으로 뭔가를하고 싶을 수도 있고, 다른 방식으로하고 싶을 수도 있습니다.<br>우리가 코드에 대해 작업하는 한 괜찮습니다.<br>하지만 10, 100, 심지어 1,000 명의 개발자가 모두 동일한 코드베이스에서 작업 할 때 어떤 일이 발생할까요?<br>상황이 매우 지저분 해집니다.<br>스타일 가이드는 새로운 개발자가 코드 기반을 신속하게 익히고 다른 개발자가 쉽고 빠르게 이해할 수있는 코드를 작성할 수 있도록 만들어졌습니다!</p>
+<h2 id="airbnb-스타일-가이드"><a href="#airbnb-스타일-가이드" class="headerlink" title="airbnb 스타일 가이드"></a>airbnb 스타일 가이드</h2><p><a href="https://github.com/airbnb/javascript" target="_blank" rel="external">https://github.com/airbnb/javascript</a><br>자바 스크립트에 대한 합리적인 접근법<br>Airbnb는 인터넷에서 가장 인기있는 JavaScript 스타일 가이드 중 하나입니다.<br>자바 스크립트의 거의 모든 측면을 다루고 있습니다.</p>
+<h2 id="Google-자바-스크립트-스타일-가이드"><a href="#Google-자바-스크립트-스타일-가이드" class="headerlink" title="Google 자바 스크립트 스타일 가이드"></a>Google 자바 스크립트 스타일 가이드</h2><p><a href="https://google.github.io/styleguide/jsguide.html" target="_blank" rel="external">https://google.github.io/styleguide/jsguide.html</a><br>자바 스크립트 소스 파일은 여기에있는 규칙을 준수하는 경우에만<br>Google 스타일로 설명됩니다.</p>
+<h2 id="관용적-인-JavaScript-스타일-가이드"><a href="#관용적-인-JavaScript-스타일-가이드" class="headerlink" title="관용적 인 JavaScript 스타일 가이드"></a>관용적 인 JavaScript 스타일 가이드</h2><p><a href="https://github.com/rwaldron/idiomatic.js/" target="_blank" rel="external">https://github.com/rwaldron/idiomatic.js/</a><br>얼마나 많은 사람들이 공헌했는지에 관계없이 모든 코드 기반의 모든 코드는 한 사람이 입력 한 것처럼 보입니다.<br>가장 많이 사용되는 JavaScript 스타일 가이드 중 하나 인 관용구 가이드는 여러 언어로 제공되며 요청을 받아 들일 수 있습니다.</p>
+<h2 id="JavaScript-표준-스타일-가이드"><a href="#JavaScript-표준-스타일-가이드" class="headerlink" title="JavaScript 표준 스타일 가이드"></a>JavaScript 표준 스타일 가이드</h2><p><a href="https://github.com/standard/standard" target="_blank" rel="external">https://github.com/standard/standard</a><br>이 스타일 가이드는 NPM , GitHub , mongoDB 및 ZenDesk를 포함한 많은 기술 회사에서 사용됩니다.</p>
+<h2 id="jQuery-JavaScript-스타일-가이드"><a href="#jQuery-JavaScript-스타일-가이드" class="headerlink" title="jQuery JavaScript 스타일 가이드"></a>jQuery JavaScript 스타일 가이드</h2><p>jQuery를 향상시키는 데 도움이되는 몇 가지 코드를 작성하고 싶습니까? 스타일 가이드를 읽고 JavaScript의 형식을 확인하십시오.<br>웹 사이트 에서 jQuery 스타일 가이드를 볼 수 있습니다.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://devhaeyeon.github.io/2017/12/03/five-js-styleguide/" data-id="cjas4y19p0001m9ecp2ht5iit" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/번역/">번역</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/번역/">번역</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/번역/" style="font-size: 10px;">번역</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/12/03/web-performance/">web-performance</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/03/webgl-casestudy/">WebGL을 사용한 애니메이션 및 상호 작용 기법 탐색 (사례 연구)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/03/five-js-styleguide/">5가지 자바스크립트 스타일 가이드</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 devhaeyeon<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
