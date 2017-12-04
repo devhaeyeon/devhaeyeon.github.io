@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://devhaeyeon.github.io/2017/12/03/webgl-casestudy/</loc>
+    
+    <lastmod>2017-12-04T11:29:27.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://devhaeyeon.github.io/2017/12/03/web-performance/</loc>
     
     <lastmod>2017-12-04T11:15:24.000Z</lastmod>
@@ -12,13 +19,6 @@
     <loc>https://devhaeyeon.github.io/2017/12/03/five-js-styleguide/</loc>
     
     <lastmod>2017-12-04T09:48:32.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://devhaeyeon.github.io/2017/12/03/webgl-casestudy/</loc>
-    
-    <lastmod>2017-12-03T12:52:27.000Z</lastmod>
     
   </url>
   
