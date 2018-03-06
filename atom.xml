@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://devhaeyeon.github.io/"/>
-  <updated>2018-03-06T09:36:33.000Z</updated>
+  <updated>2018-03-06T09:51:15.000Z</updated>
   <id>https://devhaeyeon.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>개발 문서에서 &#39;behind the scene&#39;의 뜻</title>
+    <link href="https://devhaeyeon.github.io/2018/03/06/translate-tip1/"/>
+    <id>https://devhaeyeon.github.io/2018/03/06/translate-tip1/</id>
+    <published>2018-03-06T09:41:39.000Z</published>
+    <updated>2018-03-06T09:51:15.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="서론"><a href="#서론" class="headerlink" title="서론"></a>서론</h2><p>도커 공식 홈페이지에서 샘플 튜토리얼을 번역하다가 난관에 부딪혔다.<br>‘뒤에서 장면이?’<br>‘장면이 뒤에서?’<br> ‘뒤에서 실행이 되고 있다?’<br> ‘음 ? 무엇을’<br>…<br>수 많은 해석들을 했지만, 번역을 할 수 없었다.<br>…</p><h2 id="의미"><a href="#의미" class="headerlink" title="의미"></a>의미</h2><p>사전적인 의미 : ‘무대 뒤에서 / 이면에서’<br>개발 문서에서 번역할 때 대략적인 의미로는 ‘내부적으로 어떤 어떤 일이 일어난다.’<br>약간 ‘내부적인’ 것이라고 보면 될 것 같다.</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;서론&quot;&gt;&lt;a href=&quot;#서론&quot; class=&quot;headerlink&quot; title=&quot;서론&quot;&gt;&lt;/a&gt;서론&lt;/h2&gt;&lt;p&gt;도커 공식 홈페이지에서 샘플 튜토리얼을 번역하다가 난관에 부딪혔다.&lt;br&gt;‘뒤에서 장면이?’&lt;br&gt;‘장면이 뒤에서?’&lt;br&gt; 
+      
+    
+    </summary>
+    
+    
+      <category term="번역팁, tip" scheme="https://devhaeyeon.github.io/tags/%EB%B2%88%EC%97%AD%ED%8C%81-tip/"/>
+    
+  </entry>
   
   <entry>
     <title>(도커) 도커 파헤치기 step1. Running your first container</title>
